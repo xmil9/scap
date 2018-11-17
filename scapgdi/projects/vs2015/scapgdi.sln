@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scapgdi", "scapgdi.vcxproj", "{11C261BE-7CAD-428E-84C9-1D930A5B36D4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scapgdi_test", "..\..\tests\vs2015\scapgdi_test.vcxproj", "{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4} = {11C261BE-7CAD-428E-84C9-1D930A5B36D4}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebugDLL|x64 = DebugDLL|x64
+		DebugDLL|x86 = DebugDLL|x86
+		DebugMD|x64 = DebugMD|x64
+		DebugMD|x86 = DebugMD|x86
+		ReleaseDLL|x64 = ReleaseDLL|x64
+		ReleaseDLL|x86 = ReleaseDLL|x86
+		ReleaseMD|x64 = ReleaseMD|x64
+		ReleaseMD|x86 = ReleaseMD|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.DebugDLL|x64.ActiveCfg = DebugDLL|x64
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.DebugDLL|x64.Build.0 = DebugDLL|x64
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.DebugDLL|x86.ActiveCfg = DebugDLL|Win32
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.DebugDLL|x86.Build.0 = DebugDLL|Win32
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.DebugMD|x64.ActiveCfg = DebugMD|x64
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.DebugMD|x64.Build.0 = DebugMD|x64
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.DebugMD|x86.ActiveCfg = DebugMD|Win32
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.DebugMD|x86.Build.0 = DebugMD|Win32
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.ReleaseDLL|x64.ActiveCfg = ReleaseDLL|x64
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.ReleaseDLL|x64.Build.0 = ReleaseDLL|x64
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.ReleaseDLL|x86.ActiveCfg = ReleaseDLL|Win32
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.ReleaseDLL|x86.Build.0 = ReleaseDLL|Win32
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.ReleaseMD|x64.ActiveCfg = ReleaseMD|x64
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.ReleaseMD|x64.Build.0 = ReleaseMD|x64
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.ReleaseMD|x86.ActiveCfg = ReleaseMD|Win32
+		{11C261BE-7CAD-428E-84C9-1D930A5B36D4}.ReleaseMD|x86.Build.0 = ReleaseMD|Win32
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.DebugDLL|x64.ActiveCfg = DebugDLL|x64
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.DebugDLL|x64.Build.0 = DebugDLL|x64
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.DebugDLL|x86.ActiveCfg = DebugDLL|Win32
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.DebugDLL|x86.Build.0 = DebugDLL|Win32
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.DebugMD|x64.ActiveCfg = DebugMD|x64
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.DebugMD|x64.Build.0 = DebugMD|x64
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.DebugMD|x86.ActiveCfg = DebugMD|Win32
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.DebugMD|x86.Build.0 = DebugMD|Win32
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.ReleaseDLL|x64.ActiveCfg = ReleaseDLL|x64
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.ReleaseDLL|x64.Build.0 = ReleaseDLL|x64
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.ReleaseDLL|x86.ActiveCfg = ReleaseDLL|Win32
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.ReleaseDLL|x86.Build.0 = ReleaseDLL|Win32
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.ReleaseMD|x64.ActiveCfg = ReleaseMD|x64
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.ReleaseMD|x64.Build.0 = ReleaseMD|x64
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.ReleaseMD|x86.ActiveCfg = ReleaseMD|Win32
+		{4BE1D2CC-1954-4183-9A14-99EA8D200C1E}.ReleaseMD|x86.Build.0 = ReleaseMD|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

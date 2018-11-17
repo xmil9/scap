@@ -1,0 +1,9 @@
+# Makefile for a statically linked test executable of scapx.
+
+target = scapx_test_static
+# Directory for the statically linked configuration.
+configdir = static
+LDLIBS = -l:libscapx.a -lX11 -l:libpng.a -l:libz.a
+
+include makefile.common
+

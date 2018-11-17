@@ -1,0 +1,10 @@
+# Makefile for a shared linked test executable of scapx.
+
+target = scapx_test_shared
+# Directory for the shared linked configuration.
+configdir = shared
+LDLIBS = -l:libscapx.so -lpng -lz
+
+include makefile.common
+
+

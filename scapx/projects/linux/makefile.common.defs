@@ -1,0 +1,58 @@
+#
+# Makefile for scapx.
+# Definitions common to both makefiles for static and shared targets.
+# Jan-2017 Michael Lindner
+#
+basedir = $(abspath ../../../../base)
+srcdir = $(abspath ../../sources/linux)
+external_header_dir = $(abspath ../../../include)
+dep_dir = $(abspath ../../../../../dependencies)
+pngutil_dir = $(dep_dir)/libpng/util
+prefix_dir = /usr/local
+install_lib_dir = $(prefix_dir)/lib
+install_incl_dir = $(prefix_dir)/include
+
+# Make sure the configuration directory exists.
+$(shell mkdir -p $(configdir) >/dev/null)
+
+# Directory for automatically generated dependencies.
+# Ensure it exists.
+depdir = $(configdir)/.dep
+$(shell mkdir -p $(depdir) >/dev/null)
+# GCC flags for generation of dependency info.
+depflags = -MT $@ -MMD -MP -MF $(depdir)/$*.tmpd
+
+# Directory for object files.
+# Ensure it exists.
+objdir = $(configdir)/obj
+$(shell mkdir -p $(objdir) >/dev/null)
+
+CXX = g++
+#CXX = clang++-3.8
+CC = $(CXX)
+CFLAGS += -g -Wall -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings \
+		-Werror
+CXXFLAGS = -std=c++14
+# Includes for libpng and zlib are expected to be at one of the default
+# locations, e.g. /usr/local/include, where the compiler will find them
+# automatically.
+INCLUDES = -I$(srcdir) -I$(external_header_dir) -I$(basedir) \
+			  -I$(dep_dir)
+SRCS_CPP = scap.cpp libpng_util.cpp
+SRCS_C =
+SRCS = $(SRCS_CPP) $(SRCS_C)
+OBJS = $(patsubst %.cpp,$(objdir)/%.o,$(SRCS_CPP))
+OBJS += $(patsubst %.c,$(objdir)/%.o,$(SRCS_C))
+EXTERNAL_H = scap.h scap_environ.h
+
+# Additional dirs for source files.
+vpath %.cpp $(srcdir) $(basedir) $(pngutil_dir)
+vpath %.c $(srcdir) $(basedir) $(pngutil_dir)
+
+COMPILE_C = $(CC) $(depflags) $(CFLAGS) $(INCLUDES) -c $< -o $@
+COMPILE_CPP = $(CXX) $(depflags) $(CFLAGS) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+LINK = $(CXX) $(CFLAGS) $(CXXFLAGS) -o $(realname) $(OBJS) $(LDFLAGS) $(LDLIBS)
+ARCHIVE = $(AR) $(ARFLAGS) $(target) $(OBJS)
+# Rename temp dependency files to permanent dependency files.
+POSTCOMPILE = mv -f $(depdir)/$*.tmpd $(depdir)/$*.d
+

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\scap.h" />
+    <ClInclude Include="..\..\..\include\scap_environ.h" />
+    <ClInclude Include="..\..\sources\win\gdi_util.h" />
+    <ClInclude Include="..\..\sources\win\stdafx.h" />
+    <ClInclude Include="..\..\sources\win\targetver.h" />
+    <ClInclude Include="..\..\sources\win\gdi_util.inl.h" />
+    <ClInclude Include="..\..\..\..\libpng\util\libpng_util.h">
+      <Filter>pngutil</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sources\win\dllmain.cpp" />
+    <ClCompile Include="..\..\sources\win\gdi_util.cpp" />
+    <ClCompile Include="..\..\sources\win\scap.cpp" />
+    <ClCompile Include="..\..\..\..\libpng\util\libpng_util.cpp">
+      <Filter>pngutil</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="pngutil">
+      <UniqueIdentifier>{34060c9e-b08b-41d2-bea9-401048bde97a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

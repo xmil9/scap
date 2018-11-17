@@ -1,0 +1,45 @@
+#
+# Makefile for scapx.
+# Definitions and rules specific to the shared config.
+#
+# Jan-2017 Michael Lindner
+#
+
+# Directory for intermediate files for the configuration.
+configdir = intermediate_shared
+
+target = libscapx.so
+soname = $(target).1
+realname = $(soname).0
+
+CFLAGS = -fPIC
+# Binaries for libpng and zlib are expected to be at one of the default
+# locations, e.g. /usr/local/lib, where the compiler will find them
+# automatically.
+LDLIBS = -lX11 -lpng -lz
+LDFLAGS = -shared -Wl,-soname,$(soname)
+
+include makefile.common.defs
+
+$(target): $(OBJS)
+	$(LINK)
+	ln -sf $(realname) $(soname)
+	ln -sf $(realname) $(target)
+
+.PHONY: install
+install:
+	# Copy lib file and create sym links.
+	cp -f -v $(realname) $(install_lib_dir)
+	cd $(install_lib_dir) && ln -sf $(realname) $(soname)
+	cd $(install_lib_dir) && ln -sf $(realname) $(target)
+	# Update lib cache.
+	/sbin/ldconfig
+	# Copy external headers.
+	cd "$(external_header_dir)" && cp -f -v $(EXTERNAL_H) $(install_incl_dir)
+
+.PHONY: uninstall
+uninstall:
+	cd $(install_lib_dir) && rm $(realname) $(soname) $(target)
+	cd $(install_incl_dir) && rm $(EXTERNAL_H)
+
+include makefile.common.rules

@@ -1,0 +1,82 @@
+# Parts of a makefile for building a test program of scapx that are common to
+# the statically and shared linked configurtions.
+# For info about automatic dependency file generation see:
+# http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/ 
+
+base_dir = $(abspath ../../../../base)
+dep_dir = $(abspath ../../../../../dependencies)
+pngutil_dir = $(dep_dir)/libpng/util
+
+# Make sure the configuration directory exists.
+$(shell mkdir -p $(configdir) >/dev/null)
+
+# Directory for automatically generated dependencies.
+# Ensure it exists.
+depdir = $(configdir)/.dep
+$(shell mkdir -p $(depdir) >/dev/null)
+# GCC flags for generation of dependency info.
+depflags = -MT $@ -MMD -MP -MF $(depdir)/$*.tmpd
+
+# Directory for object files.
+# Ensure it exists.
+objdir = $(configdir)/obj
+$(shell mkdir -p $(objdir) >/dev/null)
+
+CXX = g++
+CC = $(CXX)
+CFLAGS = -g -Wall -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings \
+		-Werror
+CXXFLAGS = -std=c++14
+# Headers for libpng and zlib are expected to be at one of the default locations
+# (/usr/local/include or /usr/include).
+INCLUDES = -I.. -I$(base_dir) -I$(dep_dir)
+# Binaries for libpng and zlib are expected to be at one of the default
+# locations (/usr/local/lib or /usr/lib).
+LDFLAGS =
+SRCS_CPP = file_system.cpp libpng_util.cpp scapx_test.cpp
+SRCS_C =
+SRCS = $(SRCS_CPP) $(SRCS_C)
+OBJS = $(patsubst %.cpp,$(objdir)/%.o,$(SRCS_CPP))
+OBJS += $(patsubst %.c,$(objdir)/%.o,$(SRCS_C))
+
+# Additional dirs for source files.
+vpath %.cpp .. $(base_dir) $(pngutil_dir)
+vpath %.c .. $(base_dir) $(pngutil_dir)
+
+COMPILE_C = $(CC) $(depflags) $(CFLAGS) $(INCLUDES) -c $< -o $@
+COMPILE_CPP = $(CXX) $(depflags) $(CFLAGS) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+LINK = $(CXX) $(CFLAGS) $(CXXFLAGS) -o $(target) $^ $(LDFLAGS) $(LDLIBS) 
+# Rename temp dependency files to permanent dependency files.
+POSTCOMPILE = mv -f $(depdir)/$*.tmpd $(depdir)/$*.d
+
+$(target): $(OBJS)
+	$(LINK)
+
+$(objdir)/%.o: %.c
+$(objdir)/%.o: %.c $(depdir)/%.d
+	$(COMPILE_C)
+	$(POSTCOMPILE)
+
+$(objdir)/%.o : %.cpp
+$(objdir)/%.o : %.cpp $(depdir)/%.d
+	$(COMPILE_CPP)
+	$(POSTCOMPILE)
+
+# Prevent make from failing if dependency file does not exist.
+$(depdir)/%.d: ;
+# Prevent make from deleting dependency files.
+.PRECIOUS: $(depdir)/%.d
+
+# *~ = Wildcard for backup files.
+.PHONY: clean
+clean:
+	$(RM) $(target) $(objdir)/*.o *~
+
+# If an error occurrs during a target's recipe, delete the target file if
+# it was already created.
+.DELETE_ON_ERROR:
+
+# Include all dependency files.
+-include $(patsubst %,$(depdir)/%.d,$(basename $(SRCS)))
+
+

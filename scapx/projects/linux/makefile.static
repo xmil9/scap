@@ -1,0 +1,34 @@
+#
+# Makefile for scapx.
+# Definitions and rules specific to the static config.
+#
+# Jan-2017 Michael Lindner
+#
+
+# Directory for intermediate files for the configuration.
+configdir = intermediate_static
+target = libscapx.a 
+LDLIBS =
+LDFLAGS =
+ARFLAGS = rcuv
+
+include makefile.common.defs
+
+$(target): $(OBJS)
+	$(ARCHIVE)
+	ranlib $(target)
+
+.PHONY: install
+install:
+	# Copy lib and update lib cache.
+	cp -f -v $(target) $(install_lib_dir)
+	/sbin/ldconfig
+	# Copy external headers.
+	cd "$(external_header_dir)" && cp -f -v $(EXTERNAL_H) $(install_incl_dir)
+
+.PHONY: uninstall
+uninstall:
+	cd $(install_lib_dir) && rm $(target)
+	cd $(install_incl_dir) && rm $(EXTERNAL_H)
+
+include makefile.common.rules

@@ -1,0 +1,33 @@
+#
+# Makefile for scapx.
+# Build rules common to both makefiles for static and shared contigs.
+# Jan-2017 Michael Lindner
+#
+
+$(objdir)/%.o: %.c
+$(objdir)/%.o: %.c $(depdir)/%.d
+	$(COMPILE_C)
+	$(POSTCOMPILE)
+
+$(objdir)/%.o : %.cpp
+$(objdir)/%.o : %.cpp $(depdir)/%.d
+	$(COMPILE_CPP)
+	$(POSTCOMPILE)
+
+# Prevent make from failing if dependency file does not exist.
+$(depdir)/%.d: ;
+# Prevent make from deleting dependency files.
+.PRECIOUS: $(depdir)/%.d
+
+# *~ = Wildcard for backup files.
+.PHONY: clean
+clean:
+	$(RM) $(target) $(realname) $(soname) $(objdir)/*.o *~
+
+# If an error occurrs during a target's recipe, delete the target file if
+# it was already created.
+.DELETE_ON_ERROR:
+
+# Include all dependency files.
+-include $(patsubst %,$(depdir)/%.d,$(basename $(SRCS)))
+
