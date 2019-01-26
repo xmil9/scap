@@ -1,7 +1,7 @@
 scap (screen capture) library
 =============================
 
-A library for capturing the screen contents and saving them as a PNG image.
+A library for capturing screen content and saving it as PNG image.
 There are different implementations using different technologies. Each
 implementation follows the same interface defined in scap.h.
 
